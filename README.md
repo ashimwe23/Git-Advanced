@@ -1,4 +1,5 @@
 # Git-Advanced
+This line was added directly on GitHub.
 # QUESTIONS(1-3)
 
 Part 1: Refining Git History (10 Challenges)
