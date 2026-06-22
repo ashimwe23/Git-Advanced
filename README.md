@@ -549,3 +549,410 @@ cf9c88f HEAD@{37}: commit: chore: Create another file
 Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
 $
 ```
+# Part 3: Advanced Workflows (10+ Challenges)
+
+1. Stashing Changes:
+
+Imagine you're working on some changes in the main branch but need to attend to something urgent. You don't want to lose your uncommitted work.
+Challenge: Stash your current changes in the main branch using git stash.
+
+2. Retrieving Stashed Changes:
+
+Later, when you're ready to resume working on those stashed changes, you can retrieve them.
+Challenge: Apply the most recent stash back onto the main branch using git stash pop.
+
+3. Branch Merging Conflicts (Continued):
+
+Merge conflicts can arise when the same lines of code are modified in both branches being merged.
+Challenge: Simulate a merge conflict scenario (you can create conflicting changes in a file on both main and a new feature branch). Then, try merging again and resolve the conflicts manually using your text editor.
+
+4. Resolving Merge Conflicts with a Merge Tool:
+
+Explore using a merge tool like git mergetool to help you visualize and resolve merge conflicts more efficiently.
+Understanding Detached HEAD State:
+
+5. Detached HEAD refers to a state where your working directory is not associated with any specific branch. Research the implications and how to recover from this state using commands like git checkout <branch-name>.
+
+```
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$ git checkout -b ft/new-feature
+Switched to a new branch 'ft/new-feature'
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (ft/new-feature)
+$ git branch
+  ft/branch
+* ft/new-feature
+  main
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (ft/new-feature)
+$ touch feature.txt
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (ft/new-feature)
+$ echo "core functionality for the new feauture" > feature.txt
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (ft/new-feature)
+$ git status
+On branch ft/new-feature
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        feature.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (ft/new-feature)
+$ git add feature.txt
+warning: in the working copy of 'feature.txt', LF will be replaced by CRLF the next time Git touches it
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (ft/new-feature)
+$ git commit -m "Implemented core functionality for a new feature"
+[ft/new-feature d377aaa] Implemented core functionality for a new feature
+ 1 file changed, 1 insertion(+)
+ create mode 100644 feature.txt
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (ft/new-feature)
+$ git log --oneline
+d377aaa (HEAD -> ft/new-feature) Implemented core functionality for a new feature
+e8f7c63 (origin/main, main) Merge branch 'main' of https://github.com/ashimwe23/Git-Advanced
+a71290b Update README.md with Git advanced codes
+d431a0c implemented test 5
+dc8a40c chore: Create Second file and test4.md file
+f3ec80f create third and fourth files
+cfeb1a7 chore: Create Second file and test4.md file
+55be22f chore: Create initial file
+26d39fe First Commit
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (ft/new-feature)
+$ git checkout main
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$ touch readme.txt
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$ echo "Welcome to this project." > readme.txt
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        readme.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$ git add readme.txt
+warning: in the working copy of 'readme.txt', LF will be replaced by CRLF the next time Git touches it
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$ git commit "updated project readme"
+error: pathspec 'updated project readme' did not match any file(s) known to git
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$ git commit -m "updated project readme"
+[main 92110df] updated project readme
+ 1 file changed, 1 insertion(+)
+ create mode 100644 readme.txt
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$ git log --oneline
+92110df (HEAD -> main) updated project readme
+e8f7c63 (origin/main) Merge branch 'main' of https://github.com/ashimwe23/Git-Advanced
+a71290b Update README.md with Git advanced codes
+d431a0c implemented test 5
+dc8a40c chore: Create Second file and test4.md file
+f3ec80f create third and fourth files
+cfeb1a7 chore: Create Second file and test4.md file
+55be22f chore: Create initial file
+26d39fe First Commit
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$ git branch -r
+  origin/ft/branch
+  origin/main
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$ git remote -v
+origin  https://github.com/ashimwe23/Git-Advanced.git (fetch)
+origin  https://github.com/ashimwe23/Git-Advanced.git (push)
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$ git push -u origin ft/new-feature
+Enumerating objects: 4, done.
+Counting objects: 100% (4/4), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 340 bytes | 340.00 KiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+remote:
+remote: Create a pull request for 'ft/new-feature' on GitHub by visiting:
+remote:      https://github.com/ashimwe23/Git-Advanced/pull/new/ft/new-feature
+remote:
+To https://github.com/ashimwe23/Git-Advanced.git
+ * [new branch]      ft/new-feature -> ft/new-feature
+branch 'ft/new-feature' set up to track 'origin/ft/new-feature'.
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$ git branch -d ft/new-feature
+warning: deleting branch 'ft/new-feature' that has been merged to
+         'refs/remotes/origin/ft/new-feature', but not yet merged to HEAD
+Deleted branch ft/new-feature (was d377aaa).
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$ git branch
+bash: $'\302\203git': command not found
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$ git merge origin/ft/new-feature
+Merge made by the 'ort' strategy.
+ feature.txt | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 feature.txt
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$ git push origin --delete ft/new-feature
+bash: $'\302\203git': command not found
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$ git push origin --delete ft/new-feature
+bash: $'\302\203git': command not found
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$ git push origin --delete ft/new-feature
+fatal: unable to access 'https://github.com/ashimwe23/Git-Advanced.git/': Could not resolve host: github.com
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$ git branch -r
+  origin/ft/branch
+  origin/ft/new-feature
+  origin/main
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$ git push origin --delete ft/new-feature
+To https://github.com/ashimwe23/Git-Advanced.git
+ - [deleted]         ft/new-feature
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$
+
+```
+Branch Deletion:
+
+After merging or completing work on a feature branch, it's good practice to remove it.
+Challenge: Delete the ft/new-feature branch once you're confident the changes are integrated into main.
+
+Creating a Branch from a Commit:
+
+You can also create a branch from a specific commit in your history.
+Challenge: Use git checkout -b ft/new-branch-from-commit commit-hash (adjust the commit hash as needed) to create a new branch named ft/new-branch-from-commit starting from the commit two positions back in your history. learn more here
+
+Branch Merging:
+
+Now that you've completed work on your feature branch, it's time to integrate it into main.
+Challenge: Merge the ft/new-branch-from-commit branch into the main branch. Address any merge conflicts that might arise.
+
+Branch Rebasing:
+
+Rebasing is another method to integrate changes from a feature branch. It rewrites your branch history by incorporating its commits on top of the latest commit in the target branch (main in our case).
+Challenge: Try rebasing the ft/new-branch-from-commit branch onto the main branch. Remember, rebasing rewrites history, so use it with caution, especially in shared repositories. learn more about rebasing here
+
+Renaming Branches:
+
+Branch names can sometimes evolve. Let's rename ft/new-branch-from-commit to a more descriptive name.
+Challenge: Use git branch -m ft/new-branch-from-commit ft/improved-branch-name to rename your branch.
+
+Checking Out Detached HEAD:
+
+In specific situations, you might need to detach HEAD from your current branch. Research git checkout <commit-hash> (replace with the desired commit hash) to understand this concept.
+```
+
+Admin@DESKTOP-31KQOVP MINGW64 ~
+$ pwd
+/c/Users/Admin
+
+Admin@DESKTOP-31KQOVP MINGW64 ~
+$ cd 'C:\Users\Admin\Desktop\THE GYM\Git Advanced Exercises'
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$ git log --oneline
+161a12a (HEAD -> main) Merge remote-tracking branch 'origin/ft/new-feature'
+92110df updated project readme
+d377aaa Implemented core functionality for a new feature
+e8f7c63 (origin/main) Merge branch 'main' of https://github.com/ashimwe23/Git-Advanced
+a71290b Update README.md with Git advanced codes
+d431a0c implemented test 5
+dc8a40c chore: Create Second file and test4.md file
+f3ec80f create third and fourth files
+cfeb1a7 chore: Create Second file and test4.md file
+55be22f chore: Create initial file
+26d39fe First Commit
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$ git checkout -b ft/new-branch-from-commit d377aaa
+Switched to a new branch 'ft/new-branch-from-commit'
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (ft/new-branch-from-commit)
+$ git branch
+  ft/branch
+* ft/new-branch-from-commit
+  main
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (ft/new-branch-from-commit)
+$ git log --oneline -3
+d377aaa (HEAD -> ft/new-branch-from-commit) Implemented core functionality for a new feature
+e8f7c63 (origin/main) Merge branch 'main' of https://github.com/ashimwe23/Git-Advanced
+a71290b Update README.md with Git advanced codes
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (ft/new-branch-from-commit)
+$ git checkout main
+Switched to branch 'main'
+Your branch is ahead of 'origin/main' by 3 commits.
+  (use "git push" to publish your local commits)
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$ git merge ft/new-branch-from-commit
+Already up to date.
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$ git merge ft/new-branch-from-commit
+Already up to date.
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$ ^C
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$ git status
+bash: $'\302\203git': command not found
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$ git status
+On branch main
+Your branch is ahead of 'origin/main' by 3 commits.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$ git log --oneline --graph --all
+*   161a12a (HEAD -> main) Merge remote-tracking branch 'origin/ft/new-feature'
+|\
+| * d377aaa (ft/new-branch-from-commit) Implemented core functionality for a new feature
+* | 92110df updated project readme
+|/
+*   e8f7c63 (origin/main) Merge branch 'main' of https://github.com/ashimwe23/Git-Advanced
+|\
+| * a71290b Update README.md with Git advanced codes
+* | d431a0c implemented test 5
+| | * ae0625c (origin/ft/branch, ft/branch) implemented test 5
+| |/
+|/|
+* | dc8a40c chore: Create Second file and test4.md file
+* | f3ec80f create third and fourth files
+| | *   5d149d4 (refs/stash) WIP on main: c22c4c0 create fourth file
+| | |\
+| | | * 0c1d434 index on main: c22c4c0 create fourth file
+| | |/
+| | * c22c4c0 create fourth file
+| | * 9a18ca0 create third file
+| |/
+| * cfeb1a7 chore: Create Second file and test4.md file
+|/
+* 55be22f chore: Create initial file
+* 26d39fe First Commit
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$ git branch --merged
+bash: $'\302\226\302\203git': command not found
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$ git branch --merged
+  ft/new-branch-from-commit
+* main
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$ git checkout ft/new-branch-from-commit
+Switched to branch 'ft/new-branch-from-commit'
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (ft/new-branch-from-commit)
+$ git rebase main
+Successfully rebased and updated refs/heads/ft/new-branch-from-commit.
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (ft/new-branch-from-commit)
+$ git branch -m ft/new-branch-from-commit ft/improved-branch-name
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (ft/improved-branch-name)
+$ git branch
+  ft/branch
+* ft/improved-branch-name
+  main
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (ft/improved-branch-name)
+$ git push -u origin ft/improved-branch-name
+Enumerating objects: 9, done.
+Counting objects: 100% (9/9), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (8/8), 775 bytes | 387.00 KiB/s, done.
+Total 8 (delta 4), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (4/4), completed with 1 local object.
+remote:
+remote: Create a pull request for 'ft/improved-branch-name' on GitHub by visiting:
+remote:      https://github.com/ashimwe23/Git-Advanced/pull/new/ft/improved-branch-name
+remote:
+To https://github.com/ashimwe23/Git-Advanced.git
+ * [new branch]      ft/improved-branch-name -> ft/improved-branch-name
+branch 'ft/improved-branch-name' set up to track 'origin/ft/improved-branch-name'.
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (ft/improved-branch-name)
+$ git push origin --delete ft/new-branch-from-commit
+error: unable to delete 'ft/new-branch-from-commit': remote ref does not exist
+error: failed to push some refs to 'https://github.com/ashimwe23/Git-Advanced.git'
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (ft/improved-branch-name)
+$ git branch -r
+  origin/ft/branch
+  origin/ft/improved-branch-name
+  origin/main
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (ft/improved-branch-name)
+$ git checkout d377aaa
+Note: switching to 'd377aaa'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at d377aaa Implemented core functionality for a new feature
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises ((d377aaa...))
+$ git status
+HEAD detached at d377aaa
+nothing to commit, working tree clean
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises ((d377aaa...))
+$ git checkout main
+Previous HEAD position was d377aaa Implemented core functionality for a new feature
+Switched to branch 'main'
+Your branch is ahead of 'origin/main' by 3 commits.
+  (use "git push" to publish your local commits)
+
+Admin@DESKTOP-31KQOVP MINGW64 ~/Desktop/THE GYM/Git Advanced Exercises (main)
+$
+
+```
